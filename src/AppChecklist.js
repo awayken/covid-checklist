@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-export class AppChecklist extends LitElement {
+class AppChecklist extends LitElement {
   static get properties() {
     return {
       title: { type: String },
@@ -44,3 +44,5 @@ export class AppChecklist extends LitElement {
     `;
   }
 }
+
+customElements.define('app-checklist', AppChecklist);

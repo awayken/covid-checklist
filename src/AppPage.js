@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-export class AppPage extends LitElement {
+class AppPage extends LitElement {
   static get properties() {
     return {
       title: { type: String },
@@ -41,3 +41,5 @@ export class AppPage extends LitElement {
     `;
   }
 }
+
+customElements.define('app-page', AppPage);

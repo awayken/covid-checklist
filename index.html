@@ -16,20 +16,16 @@
       background-color: #ededed;
     }
   </style>
-  <title>covid-checklist</title>
+  <title>COVID Checklist</title>
 </head>
 
 <body>
   <app-checklist>
-      <app-page>
-        Page 1
-      </app-page>
-      <app-page>
-        Page 2
-      </app-page>
-      <app-page>
-        Page 3
-      </app-page>
+      <ask-range max="100.4" initial="98.6">
+        Take their temperature. What is it?
+
+        <p slot="error">Your temp is too damn high!</p>
+      </ask-range>
   </app-checklist>
 
   <script type="module" src="./src/app.js"></script>
