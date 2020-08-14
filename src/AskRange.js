@@ -51,11 +51,7 @@ class AskRange extends LitElement {
   }
 
   render() {
-    let hideError = true;
-
-    if (this.currentValue > this.max) {
-      hideError = false;
-    }
+    const hideError = this.currentValue < this.max;
 
     return html`
       <app-page>
