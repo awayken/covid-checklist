@@ -22,28 +22,24 @@
 <body>
   <app-checklist name="Miles">
       <ask-range max="100.4" initial="98.6">
-        Take their temperature. What is it?
-
-        <p slot="error">
-          <strong>STOP!</strong> Do not send your child to school.
-        </p>
+        What is their temperature?
       </ask-range>
+
+      <ask-checks items='["Have they had close contact with such a person in the past 14 days?"]'>
+        Confirmed Cases of COVID-19
+      </ask-checks>
 
       <ask-checks items='["Chills", "Diarrhea", "Sore throat"]'>
         Do they have any of these symptoms?
-
-        <p slot="error">
-          <strong>STOP!</strong> Do not send your child to school.
-        </p>
       </ask-checks>
 
       <ask-checks items='["Shortness of breath", "Cough", "Muscle pain", "Headache", "Loss of taste or smell"]'>
         Are any of these symptoms new or worsening?
-
-        <p slot="error">
-          <strong>STOP!</strong> Do not send your child to school.
-        </p>
       </ask-checks>
+
+      <p slot="error">
+        <strong>STOP!</strong> Do not send your child to school.
+      </p>
   </app-checklist>
 
   <script type="module" src="./src/app.js"></script>
