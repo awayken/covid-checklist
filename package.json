@@ -50,7 +50,8 @@
   "author": "covid-checklist",
   "license": "MIT",
   "dependencies": {
-    "lit-html": "^1.0.0",
-    "lit-element": "^2.0.1"
+    "deepmerge": "^4.2.2",
+    "lit-element": "^2.0.1",
+    "lit-html": "^1.0.0"
   }
 }

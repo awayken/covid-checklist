@@ -11,18 +11,18 @@ class AskRange extends LitElement {
     };
   }
 
-    static get styles() {
-      return css`
-        :host {
-          display: block;
-        }
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+      }
 
-        :host[hidden],
-        [hidden] {
-          display: none;
-        }
-      `;
-    }
+      :host[hidden],
+      [hidden] {
+        display: none;
+      }
+    `;
+  }
 
   constructor() {
     super();
@@ -58,7 +58,13 @@ class AskRange extends LitElement {
         <h1><slot></slot></h1>
 
         <button @click="${this._decrease}">-</button>
-        <input type="number" @input="${e => { this.change(e.currentTarget.value); }}" .value="${this.currentValue}" />
+        <input
+          type="number"
+          @input="${e => {
+            this.change(e.currentTarget.value);
+          }}"
+          .value="${this.currentValue}"
+        />
         <button @click="${this._increase}">+</button>
 
         <div class="alert" ?hidden="${hideError}">

@@ -22,9 +22,9 @@ class AppPage extends LitElement {
       }
 
       section {
-        border: 1px solid rgba(0, 0, 0, .7);
-        border-radius: .35em;
-        box-shadow: 0 0 4px rgba(0, 0, 0, .7);
+        border: 1px solid rgba(0, 0, 0, 0.7);
+        border-radius: 0.35em;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
         flex-grow: 1;
         padding: 1em;
       }
