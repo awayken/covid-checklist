@@ -1,13 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
 class AppPage extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-      page: { type: String },
-    };
-  }
-
   static get styles() {
     return css`
       :host {
