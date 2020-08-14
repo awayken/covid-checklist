@@ -22,23 +22,35 @@
 <body>
   <app-checklist name="Miles">
       <ask-range max="100.4" initial="98.6">
-        What is their temperature?
+        What is your child's temperature?
 
-        <p slot="failure">Do not send them to school with a fever of 100.4° or higher.</p>
+        <p slot="failure">Do not send your child to school with a fever of 100.4° or higher.</p>
 
         <p slot="success">All good!</p>
       </ask-range>
 
-      <ask-checks items='["Have they had close contact with such a person in the past 14 days?"]'>
+      <ask-checks items='["Has your child had close contact with such a person in the past 14 days?"]'>
         Confirmed Cases of COVID-19
+
+        <p slot="failure">Do not send your child to school. Contact your healthcare provider.</p>
+
+        <p slot="success">All good!</p>
       </ask-checks>
 
       <ask-checks items='["Chills", "Diarrhea", "Sore throat"]'>
-        Do they have any of these symptoms?
+        Does your child have any of these symptoms?
+
+        <p slot="failure">Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.</p>
+
+        <p slot="success">All good!</p>
       </ask-checks>
 
       <ask-checks items='["Shortness of breath", "Cough", "Muscle pain", "Headache", "Loss of taste or smell"]'>
-        Are any of these symptoms new or worsening?
+        Are any of these symptoms new or worsening in your child?
+
+        <p slot="failure">Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.</p>
+
+        <p slot="success">All good!</p>
       </ask-checks>
 
       <p slot="error">

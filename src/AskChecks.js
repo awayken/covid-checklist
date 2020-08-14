@@ -7,6 +7,7 @@ class AskChecks extends LitElement {
     return {
       checkedItems: { type: Array, attribute: false },
       items: { type: Array },
+      valid: { type: Boolean },
     };
   }
 
@@ -31,6 +32,7 @@ class AskChecks extends LitElement {
     super();
 
     this.checkedItems = [];
+    this.hasValidated = false;
   }
 
   change(newValue) {
@@ -60,9 +62,12 @@ class AskChecks extends LitElement {
     this.checkedItems = newCheckedItems;
   }
 
-  render() {
-    const hideError = this.checkedItems.length === 0;
+  validate() {
+    this.hasValidated = true;
+    this.valid = this.checkedItems.length === 0;
+  }
 
+  render() {
     return html`
       <app-page>
         <h1><slot></slot></h1>
@@ -80,8 +85,11 @@ class AskChecks extends LitElement {
           `;
         })}
 
-        <div class="alert" ?hidden="${hideError}">
-          <slot name="error"></slot>
+        <button @click="${this.validate}">Save</button>
+
+        <div class="alert" ?hidden="${!this.hasValidated}">
+          <slot name="failure" ?hidden="${this.valid}"></slot>
+          <slot name="success" ?hidden="${!this.valid}"></slot>
         </div>
       </app-page>
     `;
