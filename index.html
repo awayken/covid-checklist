@@ -26,6 +26,22 @@
 
         <p slot="error">Your temp is too damn high!</p>
       </ask-range>
+
+      <ask-checks items='["Chills", "Diarrhea", "Sore throat"]'>
+        Do they have any of these symptoms?
+
+        <p slot="error">
+          <strong>STOP!</strong> Do not send your child to school.
+        </p>
+      </ask-checks>
+
+      <ask-checks items='["Shortness of breath", "Cough", "Muscle pain", "Headache", "Loss of taste or smell"]'>
+        Are any of these symptoms new or worsening?
+
+        <p slot="error">
+          <strong>STOP!</strong> Do not send your child to school.
+        </p>
+      </ask-checks>
   </app-checklist>
 
   <script type="module" src="./src/app.js"></script>
