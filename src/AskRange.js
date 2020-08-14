@@ -8,6 +8,7 @@ class AskRange extends LitElement {
       currentValue: { type: Number, attribute: false },
       initial: { type: Number },
       max: { type: Number },
+      valid: { type: Boolean },
     };
   }
 
@@ -28,6 +29,7 @@ class AskRange extends LitElement {
     super();
 
     this.initial = 0;
+    this.hasValidated = false;
   }
 
   connectedCallback() {
@@ -50,9 +52,12 @@ class AskRange extends LitElement {
     this.change(this.currentValue - 0.1);
   }
 
-  render() {
-    const hideError = this.currentValue < this.max;
+  validate() {
+    this.hasValidated = true;
+    this.valid = this.currentValue < this.max;
+  }
 
+  render() {
     return html`
       <app-page>
         <h1><slot></slot></h1>
@@ -67,9 +72,11 @@ class AskRange extends LitElement {
         />
         <button @click="${this._increase}">+</button>
 
-        <div class="alert" ?hidden="${hideError}">
-          <p>${this.max} is the maximum.</p>
-          <slot name="error"></slot>
+        <button @click="${this.validate}">Save</button>
+
+        <div class="alert" ?hidden="${!this.hasValidated}">
+          <slot name="failure" ?hidden="${this.valid}"></slot>
+          <slot name="success" ?hidden="${!this.valid}"></slot>
         </div>
       </app-page>
     `;

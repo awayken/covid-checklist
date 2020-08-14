@@ -23,6 +23,10 @@
   <app-checklist name="Miles">
       <ask-range max="100.4" initial="98.6">
         What is their temperature?
+
+        <p slot="failure">Do not send them to school with a fever of 100.4° or higher.</p>
+
+        <p slot="success">All good!</p>
       </ask-range>
 
       <ask-checks items='["Have they had close contact with such a person in the past 14 days?"]'>
