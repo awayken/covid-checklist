@@ -1,11 +1,13 @@
 import { LitElement, html, css } from 'lit-element';
 
+import './AppAlert.js';
 import './AppPage.js';
 
 class AskRange extends LitElement {
   static get properties() {
     return {
       currentValue: { type: Number, attribute: false },
+      failure: { type: String },
       initial: { type: Number },
       max: { type: Number },
       valid: { type: Boolean },
@@ -74,10 +76,11 @@ class AskRange extends LitElement {
 
         <button @click="${this.validate}">Save</button>
 
-        <div class="alert" ?hidden="${!this.hasValidated}">
-          <slot name="failure" ?hidden="${this.valid}"></slot>
-          <slot name="success" ?hidden="${!this.valid}"></slot>
-        </div>
+        <app-alert
+          ?hide="${!this.hasValidated}"
+          level="${this.valid ? 'success' : 'failure'}">
+          ${this.failure}
+        </app-alert>
       </app-page>
     `;
   }

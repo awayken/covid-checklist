@@ -21,12 +21,8 @@
 
 <body>
   <app-checklist name="Miles">
-      <ask-range max="100.4" initial="98.6">
+      <ask-range max="100.4" initial="98.6" failure="Do not send your child to school with a fever of 100.4° or higher.">
         What is your child's temperature?
-
-        <p slot="failure">Do not send your child to school with a fever of 100.4° or higher.</p>
-
-        <p slot="success">All good!</p>
       </ask-range>
 
       <ask-checks items='["Has your child had close contact with such a person in the past 14 days?"]'>
@@ -52,10 +48,6 @@
 
         <p slot="success">All good!</p>
       </ask-checks>
-
-      <p slot="error">
-        <strong>STOP!</strong> Do not send your child to school.
-      </p>
   </app-checklist>
 
   <script type="module" src="./src/app.js"></script>
