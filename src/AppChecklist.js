@@ -3,8 +3,7 @@ import { LitElement, html, css } from 'lit-element';
 class AppChecklist extends LitElement {
   static get properties() {
     return {
-      title: { type: String },
-      page: { type: String },
+      name: { type: String },
     };
   }
 
@@ -36,9 +35,15 @@ class AppChecklist extends LitElement {
   }
 
   render() {
+    let heading = 'COVID Checklist';
+
+    if (this.name) {
+      heading += ` for ${this.name}`;
+    }
+
     return html`
       <main>
-        <h1>COVID Checklist</h1>
+        <h1>${heading}</h1>
         <slot class="pages"></slot>
       </main>
     `;
