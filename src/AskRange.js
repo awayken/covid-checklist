@@ -44,11 +44,11 @@ class AskRange extends LitElement {
     }
   }
 
-  _increase() {
+  increase() {
     this.change(this.currentValue + 0.1);
   }
 
-  _decrease() {
+  decrease() {
     this.change(this.currentValue - 0.1);
   }
 
@@ -62,7 +62,7 @@ class AskRange extends LitElement {
       <app-page>
         <h1><slot></slot></h1>
 
-        <button @click="${this._decrease}">-</button>
+        <button @click="${this.decrease}">-</button>
         <input
           type="number"
           @input="${e => {
@@ -70,7 +70,7 @@ class AskRange extends LitElement {
           }}"
           .value="${this.currentValue}"
         />
-        <button @click="${this._increase}">+</button>
+        <button @click="${this.increase}">+</button>
 
         <button @click="${this.validate}">Save</button>
 
