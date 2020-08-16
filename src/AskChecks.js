@@ -8,6 +8,7 @@ class AskChecks extends LitElement {
     return {
       checkedItems: { type: Array, attribute: false },
       failure: { type: String },
+      hasValidated: { type: Boolean, attribute: false },
       items: { type: Array },
       valid: { type: Boolean },
     };
@@ -37,12 +38,6 @@ class AskChecks extends LitElement {
     this.hasValidated = false;
   }
 
-  change(newValue) {
-    if (newValue) {
-      this.currentValue = Number(newValue);
-    }
-  }
-
   toggleItem(e) {
     let foundItem = false;
     const item = e.target.value;
@@ -61,6 +56,7 @@ class AskChecks extends LitElement {
       newCheckedItems.push(item);
     }
 
+    this.hasValidated = false;
     this.checkedItems = newCheckedItems;
   }
 

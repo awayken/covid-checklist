@@ -8,6 +8,7 @@ class AskRange extends LitElement {
     return {
       currentValue: { type: Number, attribute: false },
       failure: { type: String },
+      hasValidated: { type: Boolean, attribute: false },
       initial: { type: Number },
       max: { type: Number },
       valid: { type: Boolean },
@@ -42,6 +43,7 @@ class AskRange extends LitElement {
 
   change(newValue) {
     if (newValue) {
+      this.hasValidated = false;
       this.currentValue = Number(newValue);
     }
   }
