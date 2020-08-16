@@ -25,28 +25,19 @@
         What is your child's temperature?
       </ask-range>
 
-      <ask-checks items='["Has your child had close contact with such a person in the past 14 days?"]'>
+      <ask-checks items='["Has your child had close contact with such a person in the past 14 days?"]'
+      failure="Do not send your child to school. Contact your healthcare provider.">
         Confirmed Cases of COVID-19
-
-        <p slot="failure">Do not send your child to school. Contact your healthcare provider.</p>
-
-        <p slot="success">All good!</p>
       </ask-checks>
 
-      <ask-checks items='["Chills", "Diarrhea", "Sore throat"]'>
+      <ask-checks items='["Chills", "Diarrhea", "Sore throat"]'
+      failure="Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.">
         Does your child have any of these symptoms?
-
-        <p slot="failure">Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.</p>
-
-        <p slot="success">All good!</p>
       </ask-checks>
 
-      <ask-checks items='["Shortness of breath", "Cough", "Muscle pain", "Headache", "Loss of taste or smell"]'>
+      <ask-checks items='["Shortness of breath", "Cough", "Muscle pain", "Headache", "Loss of taste or smell"]'
+      failure="Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.">
         Are any of these symptoms new or worsening in your child?
-
-        <p slot="failure">Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms.</p>
-
-        <p slot="success">All good!</p>
       </ask-checks>
   </app-checklist>
 

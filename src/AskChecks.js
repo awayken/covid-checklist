@@ -1,11 +1,13 @@
 import { LitElement, html, css } from 'lit-element';
 
+import './AppAlert.js';
 import './AppPage.js';
 
 class AskChecks extends LitElement {
   static get properties() {
     return {
       checkedItems: { type: Array, attribute: false },
+      failure: { type: String },
       items: { type: Array },
       valid: { type: Boolean },
     };
@@ -87,10 +89,12 @@ class AskChecks extends LitElement {
 
         <button @click="${this.validate}">Save</button>
 
-        <div class="alert" ?hidden="${!this.hasValidated}">
-          <slot name="failure" ?hidden="${this.valid}"></slot>
-          <slot name="success" ?hidden="${!this.valid}"></slot>
-        </div>
+        <app-alert
+          ?hide="${!this.hasValidated}"
+          level="${this.valid ? 'success' : 'failure'}"
+        >
+          ${this.failure}
+        </app-alert>
       </app-page>
     `;
   }
