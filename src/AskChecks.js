@@ -60,7 +60,11 @@ class AskChecks extends LitElement {
     this.checkedItems = newCheckedItems;
   }
 
-  validate() {
+  validate(e) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+
     this.hasValidated = true;
     this.valid = this.checkedItems.length === 0;
   }
@@ -70,20 +74,22 @@ class AskChecks extends LitElement {
       <app-page>
         <h1><slot></slot></h1>
 
-        ${this.items.map(item => {
-          return html`
-            <label>
-              <input
-                type="checkbox"
-                @input="${this.toggleItem}"
-                .value="${item}"
-              />
-              <span>${item}</span>
-            </label>
-          `;
-        })}
+        <form method="post" action="" @submit="${this.validate}">
+          ${this.items.map(item => {
+            return html`
+              <label>
+                <input
+                  type="checkbox"
+                  @input="${this.toggleItem}"
+                  .value="${item}"
+                />
+                <span>${item}</span>
+              </label>
+            `;
+          })}
 
-        <button @click="${this.validate}">Save</button>
+          <button type="submit">Save</button>
+        </form>
 
         <app-alert
           ?hide="${!this.hasValidated}"

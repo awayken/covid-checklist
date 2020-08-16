@@ -56,7 +56,11 @@ class AskRange extends LitElement {
     this.change(this.currentValue - 0.1);
   }
 
-  validate() {
+  validate(e) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+
     this.hasValidated = true;
     this.valid = this.currentValue < this.max;
   }
@@ -66,21 +70,24 @@ class AskRange extends LitElement {
       <app-page>
         <h1><slot></slot></h1>
 
-        <button @click="${this.decrease}">-</button>
-        <input
-          type="number"
-          @input="${e => {
-            this.change(e.currentTarget.value);
-          }}"
-          .value="${this.currentValue}"
-        />
-        <button @click="${this.increase}">+</button>
+        <form method="post" action="" @submit="${this.validate}">
+          <button type="button" @click="${this.decrease}">-</button>
+          <input
+            type="number"
+            @input="${e => {
+              this.change(e.currentTarget.value);
+            }}"
+            .value="${this.currentValue}"
+          />
+          <button type="button" @click="${this.increase}">+</button>
 
-        <button @click="${this.validate}">Save</button>
+          <button type="submit">Save</button>
+        </form>
 
         <app-alert
           ?hide="${!this.hasValidated}"
-          level="${this.valid ? 'success' : 'failure'}">
+          level="${this.valid ? 'success' : 'failure'}"
+        >
           ${this.failure}
         </app-alert>
       </app-page>
