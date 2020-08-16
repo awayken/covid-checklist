@@ -49,11 +49,11 @@ class AskRange extends LitElement {
   }
 
   increase() {
-    this.change(this.currentValue + 0.1);
+    this.change((this.currentValue + 0.1).toFixed(1));
   }
 
   decrease() {
-    this.change(this.currentValue - 0.1);
+    this.change((this.currentValue - 0.1).toFixed(1));
   }
 
   validate(e) {
@@ -74,9 +74,14 @@ class AskRange extends LitElement {
           <button type="button" @click="${this.decrease}">-</button>
           <input
             type="number"
+            step="0.1"
             @input="${e => {
               this.change(e.currentTarget.value);
             }}"
+            @change="${e => {
+              this.change(e.currentTarget.value);
+            }}"
+            required
             .value="${this.currentValue}"
           />
           <button type="button" @click="${this.increase}">+</button>
