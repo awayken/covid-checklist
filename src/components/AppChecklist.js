@@ -43,7 +43,6 @@ class AppChecklist extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.name = this.name || 'Your Child';
     this.isComplete = true;
   }
 
@@ -72,6 +71,8 @@ class AppChecklist extends LitElement {
       person => html` <option value="${person}"></option> `
     );
 
+    const name = this.name || 'your child';
+
     return html`
       <main>
         <h1>${heading}</h1>
@@ -84,9 +85,6 @@ class AppChecklist extends LitElement {
           @input="${e => {
             this.name = e.target.value;
           }}"
-          @blur="${e => {
-            // save this to the list of people in storage
-          }}"
         />
 
         <datalist id="checklist_people">
@@ -96,23 +94,21 @@ class AppChecklist extends LitElement {
         <div class="pages">
           <ask-range
             data-ask
-            failure="Do not send your child to school with a fever of 100.4° or higher."
+            failure="Do not go to school with a fever of 100.4° or higher."
             id="temperature"
             initial="98.6"
             max="100.4"
-            name="${this.name}"
           >
-            What is your child's temperature?
+            What is ${name}'s temperature?
           </ask-range>
 
           <ask-checks
             data-ask
             id="covidcontact"
             items="${JSON.stringify([
-              'Has your child had close contact with such a person in the past 14 days?',
+              'Had close contact with such a person in the past 14 days?',
             ])}"
-            failure="Do not send your child to school. Contact your healthcare provider."
-            name="${this.name}"
+            failure="Do not send ${name} to school. Contact your healthcare provider."
           >
             Confirmed Cases of COVID-19
           </ask-checks>
@@ -121,10 +117,9 @@ class AppChecklist extends LitElement {
             data-ask
             id="symptomsnew"
             items="${JSON.stringify(['Chills', 'Diarrhea', 'Sore throat'])}"
-            failure="Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms."
-            name="${this.name}"
+            failure="Do not send ${name} to school. Contact your healthcare provider. Contact your school to inform them of ${name}’s symptoms."
           >
-            Does your child have any of these symptoms?
+            Does ${name} have any of these symptoms?
           </ask-checks>
 
           <ask-checks
@@ -137,10 +132,9 @@ class AppChecklist extends LitElement {
               'Headache',
               'Loss of taste or smell',
             ])}"
-            failure="Do not send your child to school. Contact your healthcare provider. Contact your school to inform them of your child’s symptoms."
-            name="${this.name}"
+            failure="Do not send ${name} to school. Contact your healthcare provider. Contact your school to inform them of ${name}’s symptoms."
           >
-            Are any of these symptoms new or worsening in your child?
+            Are any of these symptoms new or worsening in ${name}?
           </ask-checks>
 
           ${this.isComplete
