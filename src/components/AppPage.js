@@ -11,6 +11,7 @@ class AppPage extends LitElement {
         height: 100%;
         justify-content: stretch;
         padding: 1em;
+        scroll-snap-align: center;
         width: 100%;
       }
 
@@ -19,6 +20,8 @@ class AppPage extends LitElement {
         border-radius: 0.35em;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
         flex-grow: 1;
+        margin: 0 auto;
+        max-width: 80%;
         padding: 1em;
       }
     `;

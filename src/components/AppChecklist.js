@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
+import './AppPage.js';
 import './AskRange.js';
 import './AskChecks.js';
 
@@ -32,10 +33,13 @@ class AppChecklist extends LitElement {
       }
 
       .pages {
+        align-items: stretch;
         display: flex;
         flex-grow: 1;
+        justify-content: stretch;
         max-width: 100%;
-        overflow-x: auto;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
       }
     `;
   }
@@ -92,6 +96,7 @@ class AppChecklist extends LitElement {
         </datalist>
 
         <div class="pages">
+        <app-page>
           <ask-range
             data-ask
             failure="Do not send ${name} to school or work with a fever of 100.4° or higher."
@@ -101,7 +106,9 @@ class AppChecklist extends LitElement {
           >
             ${name}'s temperature
           </ask-range>
+          </app-page>
 
+          <app-page>
           <ask-checks
             data-ask
             id="symptomsnew"
@@ -115,7 +122,9 @@ class AppChecklist extends LitElement {
           >
             ${name}'s symptoms
           </ask-checks>
+          </app-page>
 
+          <app-page>
           <ask-checks
             data-ask
             id="covidcontact"
@@ -127,12 +136,24 @@ class AppChecklist extends LitElement {
           >
             ${name}'s COVID-19 contact
           </ask-checks>
+          </app-page>
 
-          ${this.isComplete
-            ? html`<button @click="${this.completeChecklist}">
-                Save Today
-              </button>`
-            : ''}
+          ${
+            this.isComplete
+              ? html`
+                  <app-page>
+                    <h1>Almost Done</h1>
+                    <p>
+                      Double check the checklist and save today's details
+                      when you're ready.
+                    </p>
+                    <button @click="${this.completeChecklist}">
+                      Save Today
+                    </button>
+                  </app-page>
+                `
+              : ''
+          }
         </div>
       </main>
     `;

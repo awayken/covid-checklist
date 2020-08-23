@@ -1,7 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
 import './AppAlert.js';
-import './AppPage.js';
 
 class AskRange extends LitElement {
   static get properties() {
@@ -67,7 +66,6 @@ class AskRange extends LitElement {
 
   render() {
     return html`
-      <app-page>
         <h1><slot></slot></h1>
 
         <form method="post" action="" @submit="${this.validate}">
@@ -95,7 +93,6 @@ class AskRange extends LitElement {
         >
           ${this.failure}
         </app-alert>
-      </app-page>
     `;
   }
 }
