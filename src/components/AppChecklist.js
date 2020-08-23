@@ -71,7 +71,7 @@ class AppChecklist extends LitElement {
       person => html` <option value="${person}"></option> `
     );
 
-    const name = this.name || 'your child';
+    const name = this.name || 'Your child';
 
     return html`
       <main>
@@ -94,47 +94,38 @@ class AppChecklist extends LitElement {
         <div class="pages">
           <ask-range
             data-ask
-            failure="Do not go to school with a fever of 100.4° or higher."
+            failure="Do not send ${name} to school or work with a fever of 100.4° or higher."
             id="temperature"
             initial="98.6"
             max="100.4"
           >
-            What is ${name}'s temperature?
+            ${name}'s temperature
           </ask-range>
+
+          <ask-checks
+            data-ask
+            id="symptomsnew"
+            items="${JSON.stringify([
+              'Sore throat',
+              'New uncontrolled cough that causes difficulty breathing',
+              'Diarrhea, vomiting, or abdominal pain',
+              'New onset of severe headache, especially with a fever',
+            ])}"
+            failure="Do not send ${name} to school or work. Contact your healthcare provider and school or work to inform them of ${name}’s symptoms."
+          >
+            ${name}'s symptoms
+          </ask-checks>
 
           <ask-checks
             data-ask
             id="covidcontact"
             items="${JSON.stringify([
-              'Had close contact with such a person in the past 14 days?',
+              'Have they been identified as having COVID-19 and not been cleared by the SD Deptartment of Health for return to school or work?',
+              'Have they been identified as a close contact (spending 15 minutes or more within 6 feet or fewer) to a confirmed COVID-19 case within the last 14 days?',
             ])}"
-            failure="Do not send ${name} to school. Contact your healthcare provider."
+            failure="Do not send ${name} to school or work. Contact your healthcare provider."
           >
-            Confirmed Cases of COVID-19
-          </ask-checks>
-
-          <ask-checks
-            data-ask
-            id="symptomsnew"
-            items="${JSON.stringify(['Chills', 'Diarrhea', 'Sore throat'])}"
-            failure="Do not send ${name} to school. Contact your healthcare provider. Contact your school to inform them of ${name}’s symptoms."
-          >
-            Does ${name} have any of these symptoms?
-          </ask-checks>
-
-          <ask-checks
-            data-ask
-            id="symptomsworse"
-            items="${JSON.stringify([
-              'Shortness of breath',
-              'Cough',
-              'Muscle pain',
-              'Headache',
-              'Loss of taste or smell',
-            ])}"
-            failure="Do not send ${name} to school. Contact your healthcare provider. Contact your school to inform them of ${name}’s symptoms."
-          >
-            Are any of these symptoms new or worsening in ${name}?
+            ${name}'s COVID-19 contact
           </ask-checks>
 
           ${this.isComplete
