@@ -72,7 +72,7 @@ class AskChecks extends LitElement {
     return html`
         <h1><slot></slot></h1>
 
-        <form method="post" action="" @submit="${this.validate}">
+        <form method="POST" action="" @submit="${this.validate}">
           ${this.items.map(item => {
             return html`
               <label>
