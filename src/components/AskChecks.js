@@ -66,6 +66,14 @@ class AskChecks extends LitElement {
 
     this.hasValidated = true;
     this.valid = this.checkedItems.length === 0;
+
+    const saveEvent = new CustomEvent('save', {
+      detail: {
+        checkedItems: this.checkedItems,
+      },
+    });
+
+    this.dispatchEvent(saveEvent);
   }
 
   render() {

@@ -62,13 +62,21 @@ class AskRange extends LitElement {
 
     this.hasValidated = true;
     this.valid = this.currentValue < this.max;
+
+    const saveEvent = new CustomEvent('save', {
+      detail: {
+        value: this.currentValue,
+      },
+    });
+
+    this.dispatchEvent(saveEvent);
   }
 
   render() {
     return html`
         <h1><slot></slot></h1>
 
-        <form method="post" action="" @submit="${this.validate}">
+        <form method="POST" action="" @submit="${this.validate}">
           <button type="button" @click="${this.decrease}">-</button>
           <input
             type="number"
@@ -80,7 +88,7 @@ class AskRange extends LitElement {
               this.change(e.currentTarget.value);
             }}"
             required
-            .value="${this.currentValue}"
+            .value="${this.currentValue.toString()}"
           />
           <button type="button" @click="${this.increase}">+</button>
 
