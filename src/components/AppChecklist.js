@@ -123,7 +123,10 @@ class AppChecklist extends LitElement {
           list="checklist_people"
           id="checklist_person"
           name="checklist_person"
-          @input="${(e) => { this.choosePerson(e.target.value); }}"
+          placeholder="Type or choose a name"
+          @input="${e => {
+            this.choosePerson(e.target.value);
+          }}"
           .value="${this.name || ''}"
         />
 
@@ -135,7 +138,9 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-range
               data-ask
-              failure="Do not send ${this.name} to school or work with a fever of 100.4° or higher."
+              key="${this.name}"
+              failure="Do not send ${this
+                .name} to school or work with a fever of 100.4° or higher."
               id="temperature"
               initial="98.6"
               max="100.4"
@@ -148,6 +153,7 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
+              key="${this.name}"
               id="symptomsnew"
               items="${JSON.stringify([
                 'Sore throat',
@@ -155,7 +161,9 @@ class AppChecklist extends LitElement {
                 'Diarrhea, vomiting, or abdominal pain',
                 'New onset of severe headache, especially with a fever',
               ])}"
-              failure="Do not send ${this.name} to school or work. Contact your healthcare provider and school or work to inform them of ${this.name}’s symptoms."
+              failure="Do not send ${this
+                .name} to school or work. Contact your healthcare provider and school or work to inform them of ${this
+                .name}’s symptoms."
               @save="${this.saveAsk}"
             >
               ${this.name}'s symptoms
@@ -165,12 +173,14 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
+              key="${this.name}"
               id="covidcontact"
               items="${JSON.stringify([
                 'Have they been identified as having COVID-19 and not been cleared by the SD Deptartment of Health for return to school or work?',
                 'Have they been identified as a close contact (spending 15 minutes or more within 6 feet or fewer) to a confirmed COVID-19 case within the last 14 days?',
               ])}"
-              failure="Do not send ${this.name} to school or work. Contact your healthcare provider."
+              failure="Do not send ${this
+                .name} to school or work. Contact your healthcare provider."
               @save="${this.saveAsk}"
             >
               ${this.name}'s COVID-19 contact
@@ -203,8 +213,9 @@ class AppChecklist extends LitElement {
           )}"
           level="${this.isValid ? 'success' : 'failure'}"
         >
-          Do not send ${this.previousName} to school or work. Contact your healthcare
-          provider and school or work to inform them of ${this.previousName}’s symptoms.
+          Do not send ${this.previousName} to school or work. Contact your
+          healthcare provider and school or work to inform them of
+          ${this.previousName}’s symptoms.
         </app-alert>
       </main>
     `;

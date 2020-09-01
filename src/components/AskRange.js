@@ -9,6 +9,7 @@ class AskRange extends LitElement {
       failure: { type: String },
       hasValidated: { type: Boolean, attribute: false },
       initial: { type: Number },
+      key: { type: String },
       max: { type: Number },
       valid: { type: Boolean },
     };
@@ -32,6 +33,16 @@ class AskRange extends LitElement {
 
     this.initial = 0;
     this.hasValidated = false;
+  }
+
+  update(changedProperties) {
+    if (changedProperties.has('key')) {
+      this.currentValue = Number(this.initial);
+      this.hasValidated = false;
+      this.valid = null;
+    }
+
+    super.update(changedProperties);
   }
 
   connectedCallback() {

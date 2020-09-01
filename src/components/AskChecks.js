@@ -9,6 +9,7 @@ class AskChecks extends LitElement {
       failure: { type: String },
       hasValidated: { type: Boolean, attribute: false },
       items: { type: Array },
+      key: { type: String },
       valid: { type: Boolean },
     };
   }
@@ -35,6 +36,16 @@ class AskChecks extends LitElement {
 
     this.checkedItems = [];
     this.hasValidated = false;
+  }
+
+  update(changedProperties) {
+    if (changedProperties.has('key')) {
+      this.checkedItems = [];
+      this.hasValidated = false;
+      this.valid = null;
+    }
+
+    super.update(changedProperties);
   }
 
   toggleItem(e) {
@@ -78,31 +89,31 @@ class AskChecks extends LitElement {
 
   render() {
     return html`
-        <h1><slot></slot></h1>
+      <h1><slot></slot></h1>
 
-        <form method="POST" action="" @submit="${this.validate}">
-          ${this.items.map(item => {
-            return html`
-              <label>
-                <input
-                  type="checkbox"
-                  @input="${this.toggleItem}"
-                  .value="${item}"
-                />
-                <span>${item}</span>
-              </label>
-            `;
-          })}
+      <form method="POST" action="" @submit="${this.validate}">
+        ${this.items.map(item => {
+          return html`
+            <label>
+              <input
+                type="checkbox"
+                @input="${this.toggleItem}"
+                .value="${item}"
+              />
+              <span>${item}</span>
+            </label>
+          `;
+        })}
 
-          <button type="submit">Save</button>
-        </form>
+        <button type="submit">Save</button>
+      </form>
 
-        <app-alert
-          ?hide="${!this.hasValidated}"
-          level="${this.valid ? 'success' : 'failure'}"
-        >
-          ${this.failure}
-        </app-alert>
+      <app-alert
+        ?hide="${!this.hasValidated}"
+        level="${this.valid ? 'success' : 'failure'}"
+      >
+        ${this.failure}
+      </app-alert>
     `;
   }
 }
