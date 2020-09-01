@@ -11,6 +11,7 @@ class AppChecklist extends LitElement {
   static get properties() {
     return {
       name: { type: String },
+      previousName: { type: String },
       isComplete: { type: Boolean },
       isValid: { type: Boolean },
     };
@@ -42,6 +43,15 @@ class AppChecklist extends LitElement {
         max-width: 100%;
         overflow-x: scroll;
         scroll-snap-type: x mandatory;
+        transition: opacity 300ms ease-out;
+      }
+
+      .pages--hide {
+        opacity: 0;
+      }
+
+      .pages--show {
+        opacity: 1;
       }
     `;
   }
@@ -56,6 +66,7 @@ class AppChecklist extends LitElement {
 
   choosePerson(name) {
     this.name = name;
+    this.previousName = name;
 
     this.isComplete = false;
     this.isValid = null;
@@ -87,6 +98,7 @@ class AppChecklist extends LitElement {
     saveCheck(this.name, checkData);
 
     this.isValid = totalValidity;
+    this.name = null;
   }
 
   render() {
@@ -100,7 +112,7 @@ class AppChecklist extends LitElement {
       person => html` <option value="${person}"></option> `
     );
 
-    const name = this.name || 'Your child';
+    const showPages = (this.name && this.name.length > 0);
 
     return html`
       <main>
@@ -112,23 +124,24 @@ class AppChecklist extends LitElement {
           id="checklist_person"
           name="checklist_person"
           @input="${(e) => { this.choosePerson(e.target.value); }}"
+          .value="${this.name || ''}"
         />
 
         <datalist id="checklist_people">
           ${personOptions}
         </datalist>
 
-        <div class="pages">
+        <div class="pages ${showPages ? 'pages--show' : 'pages--hide'}">
           <app-page>
             <ask-range
               data-ask
-              failure="Do not send ${name} to school or work with a fever of 100.4° or higher."
+              failure="Do not send ${this.name} to school or work with a fever of 100.4° or higher."
               id="temperature"
               initial="98.6"
               max="100.4"
               @save="${this.saveAsk}"
             >
-              ${name}'s temperature
+              ${this.name}'s temperature
             </ask-range>
           </app-page>
 
@@ -142,10 +155,10 @@ class AppChecklist extends LitElement {
                 'Diarrhea, vomiting, or abdominal pain',
                 'New onset of severe headache, especially with a fever',
               ])}"
-              failure="Do not send ${name} to school or work. Contact your healthcare provider and school or work to inform them of ${name}’s symptoms."
+              failure="Do not send ${this.name} to school or work. Contact your healthcare provider and school or work to inform them of ${this.name}’s symptoms."
               @save="${this.saveAsk}"
             >
-              ${name}'s symptoms
+              ${this.name}'s symptoms
             </ask-checks>
           </app-page>
 
@@ -157,10 +170,10 @@ class AppChecklist extends LitElement {
                 'Have they been identified as having COVID-19 and not been cleared by the SD Deptartment of Health for return to school or work?',
                 'Have they been identified as a close contact (spending 15 minutes or more within 6 feet or fewer) to a confirmed COVID-19 case within the last 14 days?',
               ])}"
-              failure="Do not send ${name} to school or work. Contact your healthcare provider."
+              failure="Do not send ${this.name} to school or work. Contact your healthcare provider."
               @save="${this.saveAsk}"
             >
-              ${name}'s COVID-19 contact
+              ${this.name}'s COVID-19 contact
             </ask-checks>
           </app-page>
 
@@ -190,8 +203,8 @@ class AppChecklist extends LitElement {
           )}"
           level="${this.isValid ? 'success' : 'failure'}"
         >
-          Do not send ${name} to school or work. Contact your healthcare
-          provider and school or work to inform them of ${name}’s symptoms.
+          Do not send ${this.previousName} to school or work. Contact your healthcare
+          provider and school or work to inform them of ${this.previousName}’s symptoms.
         </app-alert>
       </main>
     `;
