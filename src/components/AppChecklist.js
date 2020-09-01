@@ -11,9 +11,10 @@ class AppChecklist extends LitElement {
   static get properties() {
     return {
       name: { type: String },
-      previousName: { type: String },
-      isComplete: { type: Boolean },
+      isComplete: { type: Boolean, attribute: false },
       isValid: { type: Boolean },
+      pageNumber: { type: Number, attribute: false },
+      previousName: { type: String, attribute: false },
     };
   }
 
@@ -59,9 +60,10 @@ class AppChecklist extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    this.completedAsks = new Set();
     this.isComplete = false;
     this.isValid = null;
-    this.completedAsks = new Set();
+    this.pageNumber = 0;
   }
 
   choosePerson(name) {
@@ -71,6 +73,8 @@ class AppChecklist extends LitElement {
     this.isComplete = false;
     this.isValid = null;
     this.completedAsks = new Set();
+
+    this.scrollToPage(0);
   }
 
   saveAsk(e) {
@@ -78,6 +82,8 @@ class AppChecklist extends LitElement {
 
     this.completedAsks.add(e.target);
     this.isComplete = this.completedAsks.size === asks.length;
+
+    this.scrollToPage(this.pageNumber + 1);
   }
 
   completeChecklist() {
@@ -101,6 +107,15 @@ class AppChecklist extends LitElement {
     this.name = null;
   }
 
+  scrollToPage(pageNumber) {
+    const pages = this.renderRoot.querySelector('.pages');
+    const rect = pages.getBoundingClientRect();
+
+    pages.scrollLeft = pageNumber * rect.width;
+
+    this.pageNumber = pageNumber;
+  }
+
   render() {
     let heading = 'COVID Checklist';
 
@@ -112,7 +127,7 @@ class AppChecklist extends LitElement {
       person => html` <option value="${person}"></option> `
     );
 
-    const showPages = (this.name && this.name.length > 0);
+    const showPages = this.name && this.name.length > 0;
 
     return html`
       <main>
