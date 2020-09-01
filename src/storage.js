@@ -23,14 +23,16 @@ export function getPersons() {
 }
 
 export function saveCheck(person, asks) {
-  const saveKey = getToday();
-  const checks = getChecks();
+  if (person && person.length){
+    const saveKey = getToday();
+    const checks = getChecks();
 
-  if (!checks[person]) {
-    checks[person] = {};
+    if (!checks[person]) {
+      checks[person] = {};
+    }
+
+    checks[person][saveKey] = asks;
+
+    localStorage.setItem(checksKey, JSON.stringify(checks));
   }
-
-  checks[person][saveKey] = asks;
-
-  localStorage.setItem(checksKey, JSON.stringify(checks));
 }
