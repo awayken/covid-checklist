@@ -31,8 +31,8 @@ class AppAlert extends LitElement {
         border: 2px solid var(--primary-color);
         border-radius: 4px;
         color: var(--primary-color);
-        margin: .5em auto;
-        padding: .5em;
+        margin: 0.5em auto;
+        padding: 0.5em;
       }
 
       .success {

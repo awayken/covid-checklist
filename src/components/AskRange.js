@@ -85,33 +85,33 @@ class AskRange extends LitElement {
 
   render() {
     return html`
-        <h1><slot></slot></h1>
+      <h1><slot></slot></h1>
 
-        <form method="POST" action="" @submit="${this.validate}">
-          <button type="button" @click="${this.decrease}">-</button>
-          <input
-            type="number"
-            step="0.1"
-            @input="${e => {
-              this.change(e.currentTarget.value);
-            }}"
-            @change="${e => {
-              this.change(e.currentTarget.value);
-            }}"
-            required
-            .value="${this.currentValue.toString()}"
-          />
-          <button type="button" @click="${this.increase}">+</button>
+      <form method="POST" action="" @submit="${this.validate}">
+        <button type="button" @click="${this.decrease}">-</button>
+        <input
+          type="number"
+          step="0.1"
+          @input="${e => {
+            this.change(e.currentTarget.value);
+          }}"
+          @change="${e => {
+            this.change(e.currentTarget.value);
+          }}"
+          required
+          .value="${this.currentValue.toString()}"
+        />
+        <button type="button" @click="${this.increase}">+</button>
 
-          <button type="submit">Save</button>
-        </form>
+        <button type="submit">Save</button>
+      </form>
 
-        <app-alert
-          ?hide="${!this.hasValidated}"
-          level="${this.valid ? 'success' : 'failure'}"
-        >
-          ${this.failure}
-        </app-alert>
+      <app-alert
+        ?hide="${!this.hasValidated}"
+        level="${this.valid ? 'success' : 'failure'}"
+      >
+        ${this.failure}
+      </app-alert>
     `;
   }
 }
