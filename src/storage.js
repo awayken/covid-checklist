@@ -23,7 +23,7 @@ export function getPersons() {
 }
 
 export function saveCheck(person, asks) {
-  if (person && person.length){
+  if (person && person.length) {
     const saveKey = getToday();
     const checks = getChecks();
 

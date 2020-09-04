@@ -105,6 +105,11 @@ class AppChecklist extends LitElement {
 
     this.isValid = totalValidity;
     this.name = null;
+
+    const checklistPerson = this.renderRoot.querySelector('#checklist_person');
+    if (checklistPerson) {
+      checklistPerson.focus();
+    }
   }
 
   scrollToPage(pageNumber) {
@@ -133,31 +138,41 @@ class AppChecklist extends LitElement {
       <main>
         <h1>${heading}</h1>
 
-        <label for="checklist_person">Who are you checking?</label>
-        <input
-          list="checklist_people"
-          id="checklist_person"
-          name="checklist_person"
-          placeholder="Type or choose a name"
-          @input="${e => {
-            this.choosePerson(e.target.value);
+        <form
+          method="POST"
+          action=""
+          @submit="${e => {
+            e.preventDefault();
           }}"
-          .value="${this.name || ''}"
-        />
+        >
+          <label for="checklist_person">Who are you checking?</label>
+          <input
+            autocomplete="name"
+            autofocus
+            id="checklist_person"
+            list="checklist_people"
+            name="checklist_person"
+            placeholder="Type or choose a name"
+            @input="${e => {
+              this.choosePerson(e.target.value);
+            }}"
+            .value="${this.name || ''}"
+          />
 
-        <datalist id="checklist_people">
-          ${personOptions}
-        </datalist>
+          <datalist id="checklist_people">
+            ${personOptions}
+          </datalist>
+        </form>
 
         <div class="pages ${showPages ? 'pages--show' : 'pages--hide'}">
           <app-page>
             <ask-range
               data-ask
-              key="${this.name}"
               failure="Do not send ${this
                 .name} to school or work with a fever of 100.4° or higher."
               id="temperature"
               initial="98.6"
+              key="${this.name}"
               max="100.4"
               @save="${this.saveAsk}"
             >
@@ -168,7 +183,9 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
-              key="${this.name}"
+              failure="Do not send ${this
+                .name} to school or work. Contact your healthcare provider and school or work to inform them of ${this
+                .name}’s symptoms."
               id="symptomsnew"
               items="${JSON.stringify([
                 'Sore throat',
@@ -176,9 +193,7 @@ class AppChecklist extends LitElement {
                 'Diarrhea, vomiting, or abdominal pain',
                 'New onset of severe headache, especially with a fever',
               ])}"
-              failure="Do not send ${this
-                .name} to school or work. Contact your healthcare provider and school or work to inform them of ${this
-                .name}’s symptoms."
+              key="${this.name}"
               @save="${this.saveAsk}"
             >
               ${this.name}'s symptoms
@@ -188,14 +203,14 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
-              key="${this.name}"
+              failure="Do not send ${this
+                .name} to school or work. Contact your healthcare provider."
               id="covidcontact"
               items="${JSON.stringify([
                 'Have they been identified as having COVID-19 and not been cleared by the SD Deptartment of Health for return to school or work?',
                 'Have they been identified as a close contact (spending 15 minutes or more within 6 feet or fewer) to a confirmed COVID-19 case within the last 14 days?',
               ])}"
-              failure="Do not send ${this
-                .name} to school or work. Contact your healthcare provider."
+              key="${this.name}"
               @save="${this.saveAsk}"
             >
               ${this.name}'s COVID-19 contact
@@ -222,11 +237,11 @@ class AppChecklist extends LitElement {
         </div>
 
         <app-alert
+          level="${this.isValid ? 'success' : 'failure'}"
           ?hide="${!(
             this.isComplete &&
             (this.isValid === true || this.isValid === false)
           )}"
-          level="${this.isValid ? 'success' : 'failure'}"
         >
           Do not send ${this.previousName} to school or work. Contact your
           healthcare provider and school or work to inform them of
