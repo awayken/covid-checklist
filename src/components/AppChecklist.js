@@ -122,12 +122,6 @@ class AppChecklist extends LitElement {
   }
 
   render() {
-    let heading = 'COVID Checklist';
-
-    if (this.name) {
-      heading += ` for ${this.name}`;
-    }
-
     const personOptions = getPersons().map(
       person => html` <option value="${person}"></option> `
     );
@@ -136,7 +130,7 @@ class AppChecklist extends LitElement {
 
     return html`
       <main>
-        <h1>${heading}</h1>
+        <slot></slot>
 
         <form
           method="POST"
