@@ -31,6 +31,12 @@ class AskChecks extends LitElement {
     `;
   }
 
+  get id() {
+    return (
+      this.getAttribute('id') || `askchecks_${Math.floor(Math.random() * 1000)}`
+    );
+  }
+
   constructor() {
     super();
 
@@ -109,8 +115,8 @@ class AskChecks extends LitElement {
       </form>
 
       <app-alert
-        ?hide="${!this.hasValidated}"
         level="${this.valid ? 'success' : 'failure'}"
+        ?hide="${!this.hasValidated}"
       >
         ${this.failure}
       </app-alert>

@@ -28,6 +28,12 @@ class AskRange extends LitElement {
     `;
   }
 
+  get id() {
+    return (
+      this.getAttribute('id') || `askrange_${Math.floor(Math.random() * 1000)}`
+    );
+  }
+
   constructor() {
     super();
 
@@ -85,30 +91,40 @@ class AskRange extends LitElement {
 
   render() {
     return html`
-      <h1><slot></slot></h1>
-
       <form method="POST" action="" @submit="${this.validate}">
-        <button type="button" @click="${this.decrease}">-</button>
+        <h1>
+          <label for="${this.id}_input">
+            <slot></slot>
+          </label>
+        </h1>
+
+        <button type="button" @click="${this.decrease}" title="Decrease">
+          -
+        </button>
         <input
-          type="number"
+          autocomplete="off"
+          id="${this.id}_input"
+          required
           step="0.1"
-          @input="${e => {
-            this.change(e.currentTarget.value);
-          }}"
+          type="number"
           @change="${e => {
             this.change(e.currentTarget.value);
           }}"
-          required
+          @input="${e => {
+            this.change(e.currentTarget.value);
+          }}"
           .value="${this.currentValue.toString()}"
         />
-        <button type="button" @click="${this.increase}">+</button>
+        <button type="button" @click="${this.increase}" title="Increase">
+          +
+        </button>
 
         <button type="submit">Save</button>
       </form>
 
       <app-alert
-        ?hide="${!this.hasValidated}"
         level="${this.valid ? 'success' : 'failure'}"
+        ?hide="${!this.hasValidated}"
       >
         ${this.failure}
       </app-alert>
