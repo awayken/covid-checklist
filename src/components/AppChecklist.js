@@ -21,7 +21,6 @@ class AppChecklist extends LitElement {
   static get styles() {
     return css`
       :host {
-        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;

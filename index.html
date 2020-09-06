@@ -8,12 +8,74 @@
   <base href="/">
 
   <style>
+    :root {
+      --primary-color: #A8EDEA;
+      --primary-darker: #62A19E;
+      --primary-lighter: #CFFFFD;
+      --complementary-color: #A16D52;
+      --complementary-lighter: #EDC0A8;
+
+      --gradient-start: var(--primary-color);
+      --gradient-end: var(--complementary-lighter);
+    }
+
+    * {
+      box-sizing: border-box;
+       transition: box-shadow 300ms ease;
+    }
+
+    *:focus {
+      outline: 2px auto var(--complementary-color);
+      outline-offset: 4px;
+    }
+
     html,
-    body {
+    body,
+    h1 {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
-      background-color: #ededed;
+    }
+
+    html {
+      background: var(--gradient-end) no-repeat top center linear-gradient(to bottom, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      background-size: cover;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 1em;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #A1976A;
+    }
+
+    a:hover,
+    a:active,
+    a:focus {
+      color: #564e28;
+    }
+
+    app-checklist {
+      background: rgba(255, 255, 255, .8);
+      border: 2px solid rgba(0, 0, 0, .6);
+      border-radius: .35em;
+      box-shadow: 0 0 8px 2px rgba(100, 100, 100, 0.2);
+      display: block;
+      padding: .5em 1em;
+    }
+
+    header {
+      text-align: center;
+    }
+
+    h1,
+    summary,
+    p,
+    * + * {
+      margin: 0 0 .5rem 0;
     }
 
     .fallback {
@@ -25,7 +87,9 @@
 </head>
 <body>
   <app-checklist>
-    <h1>COVID Checklist</h1>
+    <header>
+      <h1>COVID Checklist</h1>
+    </header>
 
     <details>
       <summary>Learn more about the checklist&hellip;</summary>

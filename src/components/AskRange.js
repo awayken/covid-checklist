@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 
+import { h1 } from '../reset.js';
+
 import './AppAlert.js';
 
 class AskRange extends LitElement {
@@ -25,6 +27,8 @@ class AskRange extends LitElement {
       [hidden] {
         display: none;
       }
+
+      ${h1}
     `;
   }
 
