@@ -1,5 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 
+import { h1 } from '../reset.js';
+
 import './AppAlert.js';
 import './AppPage.js';
 import './AskRange.js';
@@ -25,7 +27,11 @@ class AppChecklist extends LitElement {
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+
+        --headline-size: 1.5rem;
       }
+
+      ${h1}
 
       main {
         display: flex;

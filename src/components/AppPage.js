@@ -3,9 +3,13 @@ import { LitElement, html, css } from 'lit-element';
 class AppPage extends LitElement {
   static get styles() {
     return css`
+      *,
+      :host {
+        box-sizing: border-box;
+      }
+
       :host {
         align-items: stretch;
-        box-sizing: border-box;
         display: flex;
         flex: 1 0 100%;
         height: 100%;
@@ -16,13 +20,9 @@ class AppPage extends LitElement {
       }
 
       section {
-        border: 1px solid rgba(0, 0, 0, 0.7);
-        border-radius: 0.35em;
-        box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+        border-top: .5rem solid var(--complementary-color);
         flex-grow: 1;
-        margin: 0 auto;
-        max-width: 80%;
-        padding: 1em;
+        padding: 1em 0;
       }
     `;
   }
