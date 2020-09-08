@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1 } from '../reset.js';
+import { h1, input } from '../reset.js';
 
 import './AppAlert.js';
 
@@ -29,6 +29,8 @@ class AskRange extends LitElement {
       }
 
       ${h1}
+
+      ${input}
     `;
   }
 

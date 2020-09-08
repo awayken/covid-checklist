@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1 } from '../reset.js';
+import { h1, label } from '../reset.js';
 
 import './AppAlert.js';
 
@@ -29,9 +29,7 @@ class AskChecks extends LitElement {
 
       ${h1}
 
-      label {
-        display: block;
-      }
+      ${label}
     `;
   }
 

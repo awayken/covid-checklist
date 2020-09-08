@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1 } from '../reset.js';
+import { h1, input, label, p } from '../reset.js';
 
 import './AppAlert.js';
 import './AppPage.js';
@@ -41,6 +41,16 @@ class AppChecklist extends LitElement {
         width: 100%;
       }
 
+      ${label}
+
+      ${input}
+
+      input {
+        width: 100%;
+      }
+
+      ${p}
+
       .pages {
         align-items: stretch;
         display: flex;
@@ -48,6 +58,7 @@ class AppChecklist extends LitElement {
         justify-content: stretch;
         max-width: 100%;
         overflow-x: scroll;
+        padding: 1em 0;
         scroll-snap-type: x mandatory;
         transition: opacity 300ms ease-out;
       }
