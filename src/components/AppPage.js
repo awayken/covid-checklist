@@ -14,7 +14,6 @@ class AppPage extends LitElement {
         flex: 1 0 100%;
         height: 100%;
         justify-content: stretch;
-        padding: 1em;
         scroll-snap-align: center;
         width: 100%;
       }
@@ -29,7 +28,7 @@ class AppPage extends LitElement {
 
   render() {
     return html`
-      <section>
+      <section tabindex="0">
         <slot></slot>
 
         <slot name="footer"></slot>
