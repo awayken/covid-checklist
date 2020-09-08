@@ -34,6 +34,29 @@ class AskRange extends LitElement {
       ${input}
 
       ${button}
+
+      .range {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .range > * + * {
+        margin-left: 0.25em;
+      }
+
+      .range button {
+        align-items: center;
+        display: grid;
+        justify-content: center;
+      }
+
+      .range input {
+        flex: auto;
+      }
+
+      svg {
+        width: 1.25em;
+      }
     `;
   }
 
@@ -107,26 +130,50 @@ class AskRange extends LitElement {
           </label>
         </h1>
 
-        <button type="button" @click="${this.decrease}" title="Decrease">
-          -
-        </button>
-        <input
-          autocomplete="off"
-          id="${this.id}_input"
-          required
-          step="0.1"
-          type="number"
-          @change="${e => {
-            this.change(e.currentTarget.value);
-          }}"
-          @input="${e => {
-            this.change(e.currentTarget.value);
-          }}"
-          .value="${this.currentValue.toString()}"
-        />
-        <button type="button" @click="${this.increase}" title="Increase">
-          +
-        </button>
+        <div class="range">
+          <button type="button" @click="${this.decrease}" title="Decrease">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
+          <input
+            autocomplete="off"
+            id="${this.id}_input"
+            required
+            step="0.1"
+            type="number"
+            @change="${e => {
+              this.change(e.currentTarget.value);
+            }}"
+            @input="${e => {
+              this.change(e.currentTarget.value);
+            }}"
+            .value="${this.currentValue.toString()}"
+          />
+
+          <button type="button" @click="${this.increase}" title="Increase">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
 
         <button type="submit">
           <app-save></app-save>
