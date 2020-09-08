@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1, label } from '../reset.js';
+import { button, h1, label } from '../reset.js';
 
 import './AppAlert.js';
+import './AppSave.js';
 
 class AskChecks extends LitElement {
   static get properties() {
@@ -30,6 +31,8 @@ class AskChecks extends LitElement {
       ${h1}
 
       ${label}
+
+      ${button}
     `;
   }
 
@@ -113,7 +116,9 @@ class AskChecks extends LitElement {
           `;
         })}
 
-        <button type="submit">Save</button>
+        <button type="submit">
+          <app-save></app-save>
+        </button>
       </form>
 
       <app-alert

@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1, input } from '../reset.js';
+import { button, h1, input } from '../reset.js';
 
 import './AppAlert.js';
+import './AppSave.js';
 
 class AskRange extends LitElement {
   static get properties() {
@@ -31,6 +32,8 @@ class AskRange extends LitElement {
       ${h1}
 
       ${input}
+
+      ${button}
     `;
   }
 
@@ -125,7 +128,9 @@ class AskRange extends LitElement {
           +
         </button>
 
-        <button type="submit">Save</button>
+        <button type="submit">
+          <app-save></app-save>
+        </button>
       </form>
 
       <app-alert

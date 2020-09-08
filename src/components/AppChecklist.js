@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { h1, input, label, p } from '../reset.js';
+import { button, h1, input, label, p } from '../reset.js';
 
 import './AppAlert.js';
 import './AppPage.js';
@@ -48,6 +48,8 @@ class AppChecklist extends LitElement {
       input {
         width: 100%;
       }
+
+      ${button}
 
       ${p}
 
