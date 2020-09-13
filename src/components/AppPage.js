@@ -14,6 +14,7 @@ class AppPage extends LitElement {
         flex: 1 0 100%;
         height: 100%;
         justify-content: stretch;
+        padding: 0 .25rem;
         scroll-snap-align: center;
         width: 100%;
       }

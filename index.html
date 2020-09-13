@@ -54,6 +54,12 @@
       padding: 1em;
     }
 
+    @supports (-webkit-touch-callout: none) {
+      body {
+          min-height: -webkit-fill-available;
+      }
+    }
+
     a,
     a:link,
     a:visited {

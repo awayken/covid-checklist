@@ -37,6 +37,7 @@ class AppChecklist extends LitElement {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        margin: 0 auto;
         max-width: 960px;
         width: 100%;
       }
