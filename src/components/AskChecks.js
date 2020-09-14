@@ -1,15 +1,16 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { button, h1, label, visuallyHidden } from '../reset.js';
+import { button, label, visuallyHidden } from '../reset.js';
 
 import './AppAlert.js';
+import './AppHeading.js';
+import './AppIcon.js';
 import './AppSave.js';
 
 class AskChecks extends LitElement {
   static get properties() {
     return {
       checkedItems: { type: Array, attribute: false },
-      failure: { type: String },
       hasValidated: { type: Boolean, attribute: false },
       items: { type: Array },
       key: { type: String },
@@ -28,8 +29,6 @@ class AskChecks extends LitElement {
         display: none;
       }
 
-      ${h1}
-
       ${label}
 
       label {
@@ -42,9 +41,9 @@ class AskChecks extends LitElement {
       ${visuallyHidden}
 
       .checkbox {
+        --icon-width: 1.5em;
         flex: none;
         margin-right: 0.25em;
-        width: 1.5em;
       }
 
       .checkbox--checked {
@@ -127,64 +126,54 @@ class AskChecks extends LitElement {
 
   render() {
     return html`
-      <h1><slot></slot></h1>
+      <app-heading icon="${this.hasValidated ? 'check' : ''}">
+        <slot></slot>
+        </app-heading>
 
-      <form method="POST" action="" @submit="${this.validate}">
-        ${this.items.map((item, index) => {
-          return html`
-            <label
-              tabindex="0"
-              @keyup="${e => {
-                if (e.which === 13) {
-                  e.preventDefault();
-                  this.toggleItem(item);
-                }
-              }}"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="checkbox ${this.checkedItems.includes(item)
-                  ? 'checkbox--checked'
-                  : 'checkbox--unchecked'}"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-              <span>${item}</span>
-              <input
-                class="hidden"
-                id="${this.id}_${index}"
-                name="${this.id}"
-                tabindex="-1"
-                type="checkbox"
-                @input="${e => {
-                  e.preventDefault();
-                  this.toggleItem(item);
+        <form method="POST" action="" @submit="${this.validate}">
+          ${this.items.map((item, index) => {
+            return html`
+              <label
+                tabindex="0"
+                @keyup="${e => {
+                  if (e.which === 13) {
+                    e.preventDefault();
+                    this.toggleItem(item);
+                  }
                 }}"
-                ?checked="${this.checkedItems.includes(item)}"
-                .value="${item}"
-              />
-            </label>
-          `;
-        })}
+              >
+                <app-icon
+                  aria-hidden="true"
+                  class="checkbox ${this.checkedItems.includes(item)
+                    ? 'checkbox--checked'
+                    : 'checkbox--unchecked'}"
+                  name="check-circle"
+                ></app-icon>
 
-        <button type="submit">
-          <app-save></app-save>
-        </button>
-      </form>
+                <span>${item}</span>
 
-      <app-alert
-        level="${this.valid ? 'success' : 'failure'}"
-        ?hide="${!this.hasValidated}"
-      >
-        ${this.failure}
-      </app-alert>
+                <input
+                  class="hidden"
+                  id="${this.id}_${index}"
+                  name="${this.id}"
+                  tabindex="-1"
+                  type="checkbox"
+                  @input="${e => {
+                    e.preventDefault();
+                    this.toggleItem(item);
+                  }}"
+                  ?checked="${this.checkedItems.includes(item)}"
+                  .value="${item}"
+                />
+              </label>
+            `;
+          })}
+
+          <button type="submit">
+            <app-save></app-save>
+          </button>
+        </form>
+      </app-heading>
     `;
   }
 }
