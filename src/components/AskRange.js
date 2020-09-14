@@ -11,7 +11,6 @@ class AskRange extends LitElement {
   static get properties() {
     return {
       currentValue: { type: Number, attribute: false },
-      failure: { type: String },
       hasValidated: { type: Boolean, attribute: false },
       initial: { type: Number },
       key: { type: String },

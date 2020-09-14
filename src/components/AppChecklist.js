@@ -122,11 +122,6 @@ class AppChecklist extends LitElement {
 
     this.isValid = totalValidity;
     this.name = null;
-
-    const checklistPerson = this.renderRoot.querySelector('#checklist_person');
-    if (checklistPerson) {
-      checklistPerson.focus();
-    }
   }
 
   scrollToPage(pageNumber) {
@@ -138,12 +133,63 @@ class AppChecklist extends LitElement {
     this.pageNumber = pageNumber;
   }
 
+  renderAlert() {
+    if (
+      !(this.isComplete && (this.isValid === true || this.isValid === false))
+    ) {
+      return null;
+    }
+
+    const failedAsks = {};
+    const asks = this.renderRoot.querySelectorAll('[data-ask]');
+
+    for (const ask of asks) {
+      const askId = ask.getAttribute('id');
+      failedAsks[askId] = !(ask.valid || false);
+    }
+
+    const alertTemperature = failedAsks.temperature
+      ? html`<li>
+          ${this.previousName} cannot have a fever of 100.4° or higher.
+        </li>`
+      : '';
+    const alertSymptoms = failedAsks.symptomsnew
+      ? html`<li>
+          Inform school or work of ${this.previousName}'s symptoms. You may also
+          contact the SD Department of Health with any COVID-19 questions at
+          <a href="tel:18009972880">1-800-997-2880</a>.
+        </li>`
+      : '';
+    const alertCOVID = failedAsks.covidcontact
+      ? html`<li>
+          Quarantine ${this.previousName} until a negative COVID test. If
+          untested, quarantine ${this.previousName} at least 10 days since
+          onset, and symptoms have improved, and it's been 24 hours without
+          fever.
+        </li>`
+      : '';
+
+    return html`
+      <app-alert level="${this.isValid ? 'success' : 'failure'}">
+        <p>
+          Do not send ${this.previousName} to school or work, and contact
+          ${this.previousName}'s healthcare provider.
+        </p>
+        <ul>
+          ${alertTemperature} ${alertSymptoms} ${alertCOVID}
+        </ul>
+      </app-alert>
+    `;
+  }
+
   render() {
     const personOptions = getPersons().map(
       person => html` <option value="${person}"></option> `
     );
 
     const showPages = this.name && this.name.length > 0;
+
+    const alert = this.renderAlert();
 
     return html`
       <main>
@@ -175,12 +221,12 @@ class AppChecklist extends LitElement {
           </datalist>
         </form>
 
+        ${alert}
+
         <div class="pages ${showPages ? 'pages--show' : 'pages--hide'}">
           <app-page>
             <ask-range
               data-ask
-              failure="Do not send ${this
-                .name} to school or work with a fever of 100.4° or higher."
               id="temperature"
               initial="98.6"
               key="${this.name}"
@@ -194,9 +240,6 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
-              failure="Do not send ${this
-                .name} to school or work. Contact your healthcare provider and school or work to inform them of ${this
-                .name}’s symptoms."
               id="symptomsnew"
               items="${JSON.stringify([
                 'Sore throat',
@@ -214,8 +257,6 @@ class AppChecklist extends LitElement {
           <app-page>
             <ask-checks
               data-ask
-              failure="Do not send ${this
-                .name} to school or work. Contact your healthcare provider."
               id="covidcontact"
               items="${JSON.stringify([
                 'Have they been identified as having COVID-19 and not been cleared by the SD Deptartment of Health for return to school or work?',
@@ -248,18 +289,6 @@ class AppChecklist extends LitElement {
             </button>
           </app-page>
         </div>
-
-        <app-alert
-          level="${this.isValid ? 'success' : 'failure'}"
-          ?hide="${!(
-            this.isComplete &&
-            (this.isValid === true || this.isValid === false)
-          )}"
-        >
-          Do not send ${this.previousName} to school or work. Contact your
-          healthcare provider and school or work to inform them of
-          ${this.previousName}’s symptoms.
-        </app-alert>
       </main>
     `;
   }

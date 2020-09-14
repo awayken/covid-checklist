@@ -11,7 +11,6 @@ class AskChecks extends LitElement {
   static get properties() {
     return {
       checkedItems: { type: Array, attribute: false },
-      failure: { type: String },
       hasValidated: { type: Boolean, attribute: false },
       items: { type: Array },
       key: { type: String },
