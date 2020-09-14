@@ -80,7 +80,6 @@ class AppChecklist extends LitElement {
     this.completedAsks = new Set();
     this.isComplete = false;
     this.isValid = null;
-    this.pageNumber = 0;
   }
 
   choosePerson(name) {
@@ -99,8 +98,6 @@ class AppChecklist extends LitElement {
 
     this.completedAsks.add(e.target);
     this.isComplete = this.completedAsks.size === asks.length;
-
-    this.scrollToPage(this.pageNumber + 1);
   }
 
   completeChecklist() {
@@ -125,12 +122,20 @@ class AppChecklist extends LitElement {
   }
 
   scrollToPage(pageNumber) {
-    const pages = this.renderRoot.querySelector('.pages');
-    const rect = pages.getBoundingClientRect();
+    const pages = this.renderRoot.querySelectorAll('app-page');
+    const newPage = pages[pageNumber];
 
-    pages.scrollLeft = pageNumber * rect.width;
-
-    this.pageNumber = pageNumber;
+    if (newPage) {
+      if (pageNumber > 0) {
+        window.setTimeout(() => {
+          newPage.scrollIntoView({
+            behavior: 'smooth',
+          });
+        }, 200);
+      } else {
+        newPage.scrollIntoView();
+      }
+    }
   }
 
   renderAlert() {
@@ -231,7 +236,10 @@ class AppChecklist extends LitElement {
               initial="98.6"
               key="${this.name}"
               max="100.4"
-              @save="${this.saveAsk}"
+              @save="${e => {
+                this.saveAsk(e);
+                this.scrollToPage(1);
+              }}"
             >
               ${this.name}'s temperature
             </ask-range>
@@ -248,7 +256,10 @@ class AppChecklist extends LitElement {
                 'New onset of severe headache, especially with a fever',
               ])}"
               key="${this.name}"
-              @save="${this.saveAsk}"
+              @save="${e => {
+                this.saveAsk(e);
+                this.scrollToPage(2);
+              }}"
             >
               ${this.name}'s symptoms
             </ask-checks>
@@ -263,7 +274,10 @@ class AppChecklist extends LitElement {
                 'Have they been identified as a close contact (spending 15 minutes or more within 6 feet or fewer) to a confirmed COVID-19 case within the last 14 days?',
               ])}"
               key="${this.name}"
-              @save="${this.saveAsk}"
+              @save="${e => {
+                this.saveAsk(e);
+                this.scrollToPage(3);
+              }}"
             >
               ${this.name}'s COVID-19 contact
             </ask-checks>
