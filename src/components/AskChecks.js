@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { button, h1, label } from '../reset.js';
+import { button, h1, label, visuallyHidden } from '../reset.js';
 
 import './AppAlert.js';
 import './AppSave.js';
@@ -32,7 +32,33 @@ class AskChecks extends LitElement {
 
       ${label}
 
+      label {
+        align-items: center;
+        display: flex;
+      }
+
       ${button}
+
+      ${visuallyHidden}
+
+      .checkbox {
+        flex: none;
+        margin-right: 0.25em;
+        width: 1.5em;
+      }
+
+      .checkbox--checked {
+        opacity: 1;
+      }
+
+      .checkbox--unchecked {
+        opacity: 0.2;
+      }
+
+      label:hover .checkbox--unchecked,
+      label:focus .checkbox--unchecked {
+        opacity: 0.3;
+      }
     `;
   }
 
@@ -59,26 +85,27 @@ class AskChecks extends LitElement {
     super.update(changedProperties);
   }
 
-  toggleItem(e) {
+  toggleItem(item) {
     let foundItem = false;
-    const item = e.target.value;
+    this.hasValidated = false;
 
-    const newCheckedItems = this.checkedItems.reduce((items, checkedItem) => {
-      if (checkedItem === item) {
-        foundItem = true;
-      } else {
-        items.push(checkedItem);
+    if (item) {
+      const newCheckedItems = this.checkedItems.reduce((items, checkedItem) => {
+        if (checkedItem === item) {
+          foundItem = true;
+        } else {
+          items.push(checkedItem);
+        }
+
+        return items;
+      }, []);
+
+      if (!foundItem) {
+        newCheckedItems.push(item);
       }
 
-      return items;
-    }, []);
-
-    if (!foundItem) {
-      newCheckedItems.push(item);
+      this.checkedItems = newCheckedItems;
     }
-
-    this.hasValidated = false;
-    this.checkedItems = newCheckedItems;
   }
 
   validate(e) {
@@ -103,15 +130,46 @@ class AskChecks extends LitElement {
       <h1><slot></slot></h1>
 
       <form method="POST" action="" @submit="${this.validate}">
-        ${this.items.map(item => {
+        ${this.items.map((item, index) => {
           return html`
-            <label>
+            <label
+              tabindex="0"
+              @keyup="${e => {
+                if (e.which === 13) {
+                  e.preventDefault();
+                  this.toggleItem(item);
+                }
+              }}"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="checkbox ${this.checkedItems.includes(item)
+                  ? 'checkbox--checked'
+                  : 'checkbox--unchecked'}"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>${item}</span>
               <input
+                class="hidden"
+                id="${this.id}_${index}"
+                name="${this.id}"
+                tabindex="-1"
                 type="checkbox"
-                @input="${this.toggleItem}"
+                @input="${e => {
+                  e.preventDefault();
+                  this.toggleItem(item);
+                }}"
+                ?checked="${this.checkedItems.includes(item)}"
                 .value="${item}"
               />
-              <span>${item}</span>
             </label>
           `;
         })}

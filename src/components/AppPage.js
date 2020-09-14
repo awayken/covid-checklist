@@ -14,13 +14,13 @@ class AppPage extends LitElement {
         flex: 1 0 100%;
         height: 100%;
         justify-content: stretch;
-        padding: 0 .25rem;
+        padding: 0 0.25rem;
         scroll-snap-align: center;
         width: 100%;
       }
 
       section {
-        border-top: .5rem solid var(--complementary-color);
+        border-top: 0.5rem solid var(--complementary-color);
         flex-grow: 1;
         padding: 1em 0;
       }

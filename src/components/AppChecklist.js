@@ -63,7 +63,7 @@ class AppChecklist extends LitElement {
         overflow-x: scroll;
         padding: 1em 0;
         scroll-snap-type: x mandatory;
-        transition: opacity 300ms ease-out;
+        transition: opacity 300ms ease-out, translate 400ms ease-in-out;
       }
 
       .pages--hide {
