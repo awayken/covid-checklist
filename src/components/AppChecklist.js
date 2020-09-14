@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { button, h1, input, label, p } from '../reset.js';
+import { button, input, label, p } from '../reset.js';
 
 import './AppAlert.js';
 import './AppPage.js';
@@ -30,8 +30,6 @@ class AppChecklist extends LitElement {
 
         --headline-size: 1.5rem;
       }
-
-      ${h1}
 
       main {
         display: flex;
@@ -231,15 +229,17 @@ class AppChecklist extends LitElement {
           </app-page>
 
           <app-page>
-            <h1>
+            <app-heading>
               ${this.isComplete
                 ? 'Almost Done'
                 : 'Complete The Checklist First'}
-            </h1>
+            </app-heading>
+
             <p>
               Double check the checklist and save today's details when you're
               ready.
             </p>
+
             <button
               @click="${this.completeChecklist}"
               .disabled="${!this.isComplete}"

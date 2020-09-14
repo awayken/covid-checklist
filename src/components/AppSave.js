@@ -28,7 +28,7 @@ class AppSave extends LitElement {
   render() {
     return html`
       <span class="appsave">
-        <span>Save</span>
+        <span>Next</span>
 
         <app-icon name="arrow-circle-right"></app-icon>
       </span>

@@ -1,8 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 
-import { button, h1, input } from '../reset.js';
+import { button, input } from '../reset.js';
 
 import './AppAlert.js';
+import './AppHeading.js';
 import './AppIcon.js';
 import './AppSave.js';
 
@@ -29,8 +30,6 @@ class AskRange extends LitElement {
       [hidden] {
         display: none;
       }
-
-      ${h1}
 
       ${input}
 
@@ -125,11 +124,11 @@ class AskRange extends LitElement {
   render() {
     return html`
       <form method="POST" action="" @submit="${this.validate}">
-        <h1>
+        <app-heading icon="${this.hasValidated ? 'check' : ''}">
           <label for="${this.id}_input">
             <slot></slot>
           </label>
-        </h1>
+        </app-heading>
 
         <div class="range">
           <button type="button" @click="${this.decrease}" title="Decrease">
@@ -160,13 +159,6 @@ class AskRange extends LitElement {
           <app-save></app-save>
         </button>
       </form>
-
-      <app-alert
-        level="${this.valid ? 'success' : 'failure'}"
-        ?hide="${!this.hasValidated}"
-      >
-        ${this.failure}
-      </app-alert>
     `;
   }
 }
