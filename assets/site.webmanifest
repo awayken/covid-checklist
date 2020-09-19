@@ -1,0 +1,20 @@
+{
+    "name": "COVID Checklist",
+    "short_name": "COVID Checklist",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#a8edea",
+    "background_color": "#a8edea",
+    "display": "standalone",
+    "start_url": "/"
+}
