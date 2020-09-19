@@ -1,4 +1,5 @@
 import merge from 'deepmerge';
+import copy from 'rollup-plugin-copy';
 import { createSpaConfig } from '@open-wc/building-rollup';
 
 const baseConfig = createSpaConfig({
@@ -8,4 +9,9 @@ const baseConfig = createSpaConfig({
 
 export default merge(baseConfig, {
   input: './index.html',
+  plugins: [
+    copy({
+      targets: [{ src: './assets/**/*', dest: './dist' }],
+    }),
+  ],
 });
