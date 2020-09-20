@@ -21,8 +21,18 @@ class AppPage extends LitElement {
 
       section {
         border-top: 0.5rem solid var(--complementary-color);
+        display: flex;
+        flex-direction: column;
         flex-grow: 1;
         padding: 1em 0;
+      }
+
+      slot {
+        display: block;
+      }
+
+      slot:first-child {
+        flex-grow: 1;
       }
     `;
   }
