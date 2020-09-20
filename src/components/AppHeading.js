@@ -21,9 +21,9 @@ class AppHeading extends LitElement {
 
       h1 {
         display: flex;
-        font-family: var(--headline-family);
-        font-size: var(--headline-size);
-        font-weight: var(--headline-weight);
+        font-family: var(--headline-family, inherit);
+        font-size: var(--headline-size, 2em);
+        font-weight: var(--headline-weight, 700);
         line-height: 1.3;
         margin: 0 0 0.5rem 0;
         padding: 0;
