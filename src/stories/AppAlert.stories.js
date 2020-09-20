@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { argsToAttributes } from './helper.js';
 
 import '../components/AppAlert.js';
 
@@ -34,7 +34,10 @@ export default {
   },
 };
 
-const Template = args => html`<app-alert level="${args.level}" ?hide="${args.hide}">This is an alert.</app-alert>`;
+const Template = args =>
+  `<app-alert ${argsToAttributes(args)}
+    >This is an alert.</app-alert
+  >`;
 
 export const InfoAlert = Template.bind({});
 InfoAlert.args = {
