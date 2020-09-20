@@ -53,3 +53,9 @@ export const PlusCircle = Template.bind({});
 PlusCircle.args = {
   name: 'plus-circle',
 };
+
+export const StyledIcon = Template.bind({});
+StyledIcon.args = {
+  name: 'arrow-circle-down',
+  style: 'color: orange; --icon-width: 3em;',
+};
