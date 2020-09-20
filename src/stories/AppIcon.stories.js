@@ -8,6 +8,7 @@ export default {
   argTypes: {
     name: {
       description: 'Name of the icon',
+      control: { type: 'text' },
     },
   },
 };
