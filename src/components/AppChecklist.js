@@ -9,6 +9,8 @@ import './AskChecks.js';
 
 import { getPersons, saveCheck } from '../storage.js';
 
+import { buzz, trumpet } from '../vibrate.js';
+
 class AppChecklist extends LitElement {
   static get properties() {
     return {
@@ -96,6 +98,8 @@ class AppChecklist extends LitElement {
   saveAsk(e) {
     const asks = this.renderRoot.querySelectorAll('[data-ask]');
 
+    buzz();
+
     this.completedAsks.add(e.target);
     this.isComplete = this.completedAsks.size === asks.length;
   }
@@ -103,6 +107,8 @@ class AppChecklist extends LitElement {
   completeChecklist() {
     const checkData = {};
     const asks = this.renderRoot.querySelectorAll('[data-ask]');
+
+    trumpet();
 
     let totalValidity = true;
 
