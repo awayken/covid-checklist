@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit-element';
 import { button, input, label, p } from '../reset.js';
 
 import './AppAlert.js';
+import './AppChooser.js';
 import './AppPage.js';
 import './AskRange.js';
 import './AskChecks.js';
@@ -213,19 +214,14 @@ class AppChecklist extends LitElement {
             e.preventDefault();
           }}"
         >
-          <label for="checklist_person">Who are you checking?</label>
-          <input
-            autocomplete="name"
-            autofocus
-            id="checklist_person"
+          <app-chooser
+            label="Who are you checking?"
             list="checklist_people"
-            name="checklist_person"
-            placeholder="Type or choose a name"
-            @input="${e => {
-              this.choosePerson(e.target.value);
-            }}"
             .value="${this.name || ''}"
-          />
+            @choose="${event => {
+              this.choosePerson(event.detail.value);
+            }}"
+          ></app-chooser>
 
           <datalist id="checklist_people">
             ${personOptions}
