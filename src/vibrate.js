@@ -5,12 +5,12 @@ function hasSupport() {
 
 export function buzz() {
   if (hasSupport()) {
-    window.navigator.vibrate(200);
+    window.navigator.vibrate(100);
   }
 }
 
 export function trumpet() {
   if (hasSupport()) {
-    window.navigator.vibrate([200, 50, 1200]);
+    window.navigator.vibrate([100, 100, 600]);
   }
 }
