@@ -18,18 +18,18 @@ export default {
       },
       table: {
         defaultValue: {
-          summary: 'info'
-        }
-      }
+          summary: 'info',
+        },
+      },
     },
     hide: {
       description: 'Hides the element',
       control: 'boolean',
       table: {
         defaultValue: {
-          summary: false
+          summary: false,
         },
-      }
+      },
     },
   },
 };

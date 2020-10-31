@@ -13,5 +13,5 @@ export default {
 
 export const renders = () => `<app-page><p>Page content.</p></app-page>`;
 
-export const rendersAFooter = () => `<app-page><p>Page content.</p> <p slot="footer">Footer content.</p></app-page>`;
-
+export const rendersAFooter = () =>
+  `<app-page><p>Page content.</p> <p slot="footer">Footer content.</p></app-page>`;

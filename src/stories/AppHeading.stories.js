@@ -13,7 +13,8 @@ export default {
   },
 };
 
-const Template = args => `<app-heading ${argsToAttributes(args)}>Welcome!</app-heading>`;
+const Template = args =>
+  `<app-heading ${argsToAttributes(args)}>Welcome!</app-heading>`;
 
 export const Heading = Template.bind({});
 
@@ -25,7 +26,7 @@ StyledHeading.args = {
 
 export const IconHeading = Template.bind({});
 IconHeading.args = {
-  icon: 'check'
+  icon: 'check',
 };
 
 export const StyledIconHeading = Template.bind({});

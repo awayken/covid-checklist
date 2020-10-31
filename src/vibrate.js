@@ -1,4 +1,3 @@
-
 function hasSupport() {
   return window && window.navigator && window.navigator.vibrate;
 }
