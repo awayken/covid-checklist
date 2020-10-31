@@ -37,17 +37,11 @@ Default.args = {
 export const Chosen = Template.bind({});
 Chosen.args = {
   label: 'Who are you checking?',
-  value: 'Brank'
+  value: 'Brank',
 };
 
 export const Empty = Template.bind({});
 Empty.args = {
   label: 'Who are you checking?',
-  list: null
+  list: null,
 };
-
-// export const StyledInfoAlert = Template.bind({});
-// StyledInfoAlert.args = {
-//   ...InfoAlert.args,
-//   style: '--info-color: navy; --background-color: lightblue;',
-// };

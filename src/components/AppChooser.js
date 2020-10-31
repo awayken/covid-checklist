@@ -87,11 +87,23 @@ class AppChooser extends LitElement {
     this.getChoicesFromList();
   }
 
+  adoptedCallback() {
+    super.adoptedCallback();
+
+    this.getChoicesFromList();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    if (this.choicesLoop) {
+      window.cancelAnimationFrame(this.choicesLoop);
+    }
+  }
+
   getChoicesFromList() {
     const list = this.parentElement.querySelector(`#${this.list}`);
     const choices = [];
-
-    // what kind of events does a data list trigger?
 
     if (list) {
       const options = list.querySelectorAll('option');
@@ -105,6 +117,10 @@ class AppChooser extends LitElement {
     }
 
     this.choices = choices;
+
+    this.choicesLoop = window.requestAnimationFrame(() =>
+      this.getChoicesFromList()
+    );
   }
 
   handleAdd() {
@@ -124,13 +140,13 @@ class AppChooser extends LitElement {
   }
 
   handleChoice(value) {
-        const chooseEvent = new CustomEvent('choose', {
-          detail: {
-            value,
-          },
-        });
+    const chooseEvent = new CustomEvent('choose', {
+      detail: {
+        value,
+      },
+    });
 
-        this.dispatchEvent(chooseEvent);
+    this.dispatchEvent(chooseEvent);
   }
 
   render() {

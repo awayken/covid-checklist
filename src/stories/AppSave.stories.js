@@ -7,9 +7,9 @@ export default {
   component: 'app-save',
 };
 
-const Template = args =>
-  `<app-save ${argsToAttributes(args)}></app-save>`;
+const Template = args => `<app-save ${argsToAttributes(args)}></app-save>`;
 
 export const renders = Template.bind({});
 
-export const rendersInsideAButton = () => `<button><app-save></app-save></button>`;
+export const rendersInsideAButton = () =>
+  `<button><app-save></app-save></button>`;
